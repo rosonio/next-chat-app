@@ -1,3 +1,5 @@
+"use client";
+
 import { FormElementProps } from "@/types/form-interface";
 import { FieldValues } from "react-hook-form";
 import {
