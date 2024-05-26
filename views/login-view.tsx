@@ -31,7 +31,7 @@ const LoginView = (props: LoginViewProps) => {
 
   return (
     <CardWrapper
-      backButtonLabel="Don't have an account"
+      backButtonLabel="Don't have an account?"
       backButtonHref="/register"
       showSocial
     >

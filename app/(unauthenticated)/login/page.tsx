@@ -23,9 +23,9 @@ const LoginPage = () => {
       console.log(data);
     });
     toast({
-      title: "Logged in successful",
-      description: "Logged in successful",
-      variant: "destructive",
+      title: "Logged in",
+      description: "Logged in successfully",
+      variant: "success",
     });
   };
 
