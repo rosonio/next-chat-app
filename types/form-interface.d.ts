@@ -20,6 +20,7 @@ export interface NextChatAppForm<T extends FieldValues> {
    */
   form: UseFormReturn<T>;
 }
+
 export interface FormElementProps<FormFieldValues extends FieldValues> {
   description?: ReactNode;
   disabled?: boolean;
