@@ -17,8 +17,7 @@ const RegistrationPage = () => {
     defaultValues: {
       email: "",
       password: "",
-      firstName: "",
-      lastName: "",
+      name: "",
     },
   });
 
@@ -26,11 +25,11 @@ const RegistrationPage = () => {
     register(data).then((data) => {
       console.log(data);
     });
-    toast({
-      title: "Account created",
-      description: "Account created successfully",
-      variant: "success",
-    });
+    // toast({
+    //   title: "Account created",
+    //   description: "Account created successfully",
+    //   variant: "success",
+    // });
   };
 
   return (

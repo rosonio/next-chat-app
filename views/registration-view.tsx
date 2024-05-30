@@ -11,8 +11,7 @@ export const registrationViewFormSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  firstName: z.string().min(1, { message: "First name is required" }),
-  lastName: z.string().min(1, { message: "Last name is required" }),
+  name: z.string().min(1, { message: "Name is required" }),
 });
 
 export interface RegistrationViewProps
@@ -46,6 +45,12 @@ const RegistrationView = (props: RegistrationViewProps) => {
         >
           <FormInput
             form={props.form}
+            label="Name"
+            name="name"
+            disabled={formState.isSubmitting}
+          />
+          <FormInput
+            form={props.form}
             label="Email"
             name="email"
             disabled={formState.isSubmitting}
@@ -56,20 +61,6 @@ const RegistrationView = (props: RegistrationViewProps) => {
             label="Password"
             name="password"
             type="password"
-            disabled={formState.isSubmitting}
-          />
-
-          <FormInput
-            form={props.form}
-            label="First Name"
-            name="firstName"
-            disabled={formState.isSubmitting}
-          />
-
-          <FormInput
-            form={props.form}
-            label="Last Name"
-            name="lastName"
             disabled={formState.isSubmitting}
           />
 
