@@ -21,15 +21,33 @@ const RegistrationPage = () => {
     },
   });
 
-  const submitHandler = (data: z.infer<typeof registrationViewFormSchema>) => {
-    register(data).then((data) => {
-      console.log(data);
-    });
-    // toast({
-    //   title: "Account created",
-    //   description: "Account created successfully",
-    //   variant: "success",
-    // });
+  const submitHandler = async (
+    data: z.infer<typeof registrationViewFormSchema>
+  ) => {
+    try {
+      const registerResponse = await register(data);
+
+      if (registerResponse.success) {
+        toast({
+          title: "Account created",
+          description: "Account created successfully",
+          variant: "success",
+        });
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          title: "Something went wrong",
+          description:
+            "There was a problem while creating your account. Please try again",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      registrationForm.reset();
+    }
   };
 
   return (
