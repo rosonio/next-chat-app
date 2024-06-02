@@ -4,8 +4,8 @@ import LoginView, { loginViewFormSchema } from "@/views/login-view";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
   const { toast } = useToast();
@@ -18,15 +18,31 @@ const LoginPage = () => {
     },
   });
 
-  const submitHandler = (data: z.infer<typeof loginViewFormSchema>) => {
-    login(data).then((data) => {
-      console.log(data);
-    });
-    toast({
-      title: "Logged in",
-      description: "Logged in successfully",
-      variant: "success",
-    });
+  console.log(loginForm.formState.errors);
+
+  const submitHandler = async (data: z.infer<typeof loginViewFormSchema>) => {
+    await signIn("credentials", {
+      ...data,
+      redirect: false,
+    })
+      .then((response) => {
+        if (response?.error) {
+          toast({
+            title: "Invalid credentials",
+            description: "Provided credentials are invalid. Please try again",
+            variant: "destructive",
+          });
+        }
+
+        if (response?.ok && !response.error) {
+          toast({
+            title: "Successfull login",
+            description: "You logged in successfully",
+            variant: "success",
+          });
+        }
+      })
+      .finally(() => loginForm.reset());
   };
 
   return (

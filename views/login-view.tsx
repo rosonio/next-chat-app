@@ -3,7 +3,7 @@ import { FormInput } from "@/components/form-components/form-input";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { NextChatAppForm } from "@/types/form-interface";
+import type { NextChatAppForm } from "@/types/form-interface";
 import { z } from "zod";
 
 export const loginViewFormSchema = z.object({
