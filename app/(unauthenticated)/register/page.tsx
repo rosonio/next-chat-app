@@ -52,13 +52,7 @@ const RegistrationPage = () => {
 
   return (
     <RegistrationView
-      form={{
-        ...registrationForm,
-        formState: {
-          ...registrationForm.formState,
-          isSubmitting: registrationForm.formState.isSubmitting,
-        },
-      }}
+      form={registrationForm}
       formSubmitHandler={submitHandler}
     />
   );
