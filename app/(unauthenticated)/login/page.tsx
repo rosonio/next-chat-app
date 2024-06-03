@@ -6,9 +6,16 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/forgot-password");
+  }, [router]);
 
   const loginForm = useForm<z.infer<typeof loginViewFormSchema>>({
     resolver: zodResolver(loginViewFormSchema),
@@ -48,15 +55,9 @@ const LoginPage = () => {
   return (
     <LoginView
       onClickForgotPassword={() => {
-        console.log("forgpas");
+        router.push("/forgot-password");
       }}
-      form={{
-        ...loginForm,
-        formState: {
-          ...loginForm.formState,
-          isSubmitting: loginForm.formState.isSubmitting,
-        },
-      }}
+      form={loginForm}
       formSubmitHandler={submitHandler}
     />
   );
