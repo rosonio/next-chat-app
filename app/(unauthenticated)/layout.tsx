@@ -1,14 +1,12 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
+import getSession from "../actions/getSession";
 
-export default function UnauthenticatedLayout(props: PropsWithChildren) {
-  const session = useSession();
+export default async function UnauthenticatedLayout(props: PropsWithChildren) {
+  const session = await getSession();
 
-  if (session.status === "authenticated") {
-    redirect("/dashboard");
+  if (session) {
+    redirect("/users");
   }
 
   return (
