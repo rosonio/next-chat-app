@@ -6,8 +6,9 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import Avatar from "../sidebar/avatar";
+import Avatar from "../avatar";
 import { format } from "date-fns";
+import AvatarGroup from "../avatar-group";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -67,7 +68,12 @@ const ConversationBox = ({ data, selected }: ConversationBoxProps) => {
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? (
+        <AvatarGroup users={data.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
+
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <div className="flex justify-between items-center mb-1">

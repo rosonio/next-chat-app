@@ -5,8 +5,9 @@ import { Conversation, User } from "@prisma/client";
 import { ChevronLeft, Menu } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import Avatar from "../sidebar/avatar";
+import Avatar from "../avatar";
 import ProfileDrawer from "./profile-drawer";
+import AvatarGroup from "../avatar-group";
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -41,7 +42,12 @@ const Header = ({ conversation }: HeaderProps) => {
           >
             <ChevronLeft size={32} />
           </Link>
-          <Avatar user={otherUser} />
+          {conversation.isGroup ? (
+            <AvatarGroup users={conversation.users} />
+          ) : (
+            <Avatar user={otherUser} />
+          )}
+
           <div className="flex flex-col">
             <div>{conversation.name || otherUser.name}</div>
             <div className="text-sm font-light text-neutral-500">
