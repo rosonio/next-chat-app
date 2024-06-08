@@ -5,17 +5,21 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const LoginPage = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const session = useSession();
 
   useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
     router.prefetch("/forgot-password");
-  }, [router]);
+  }, [router, session?.status]);
 
   const loginForm = useForm<z.infer<typeof loginViewFormSchema>>({
     resolver: zodResolver(loginViewFormSchema),
@@ -24,8 +28,6 @@ const LoginPage = () => {
       password: "",
     },
   });
-
-  console.log(loginForm.formState.errors);
 
   const submitHandler = async (data: z.infer<typeof loginViewFormSchema>) => {
     await signIn("credentials", {
@@ -47,6 +49,7 @@ const LoginPage = () => {
             description: "You logged in successfully",
             variant: "success",
           });
+          router.push("/users");
         }
       })
       .finally(() => loginForm.reset());
