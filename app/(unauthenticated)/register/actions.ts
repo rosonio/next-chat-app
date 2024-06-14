@@ -4,8 +4,8 @@ import { registrationViewFormSchema } from "@/views/registration-view";
 import { z } from "zod";
 import axios from "axios";
 
-// axios.defaults.baseURL =
-//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+axios.defaults.baseURL = "https://next-chat-app-murex.vercel.app";
+// process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
 export async function register(
   data: z.infer<typeof registrationViewFormSchema>
