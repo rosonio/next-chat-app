@@ -1,5 +1,4 @@
 import prisma from "@/lib/prismadb";
-import ConversationId from "../(authenticated)/conversations/[conversationId]/page";
 
 const getMessages = async (conversationId: string) => {
   try {

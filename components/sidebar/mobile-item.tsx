@@ -33,7 +33,7 @@ const MobileItem = ({
         active && "bg-gray-100 text-black"
       )}
     >
-      <Icon className=" h-6 w-6" />
+      <Icon className="h-6 w-6" />
       <span className="sr-only">{label}</span>
     </Link>
   );
