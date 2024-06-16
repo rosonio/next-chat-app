@@ -36,6 +36,7 @@ const ForgotPasswordPage = () => {
   ) => {
     try {
       const forgotPasswordResponse = await forgotPassword(data);
+
       if (forgotPasswordResponse.success) {
         setFormSubmittedSuccessfully(true);
       } else {
