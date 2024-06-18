@@ -69,6 +69,7 @@ const RegistrationView = (props: RegistrationViewProps) => {
             label="Password"
             name="password"
             type="password"
+            tooltip
             disabled={formState.isSubmitting}
           />
 

@@ -29,4 +29,5 @@ export interface FormElementProps<FormFieldValues extends FieldValues> {
   name: Path<FormFieldValues>;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
+  tooltip?: boolean;
 }

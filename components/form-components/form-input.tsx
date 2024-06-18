@@ -11,6 +11,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Info } from "lucide-react";
 
 export const FormInput = <T extends FieldValues>(
   props: FormElementProps<T>
@@ -21,7 +24,29 @@ export const FormInput = <T extends FieldValues>(
       name={props.name}
       render={({ field }) => (
         <FormItem>
-          {props.label && <FormLabel>{props.label}</FormLabel>}
+          <div className="flex flex-row space-x-1">
+            {props.label && <FormLabel>{props.label}</FormLabel>}
+
+            {props.tooltip && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info size={14} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>The password must meet the complexity requirements:</p>
+                    <ul>
+                      <li>- Minimum 6 characters long</li>
+                      <li>- At least one uppercase letter</li>
+                      <li>- At least one lowercase letter</li>
+                      <li>- At least one number</li>
+                      <li>- At least one special symbol</li>
+                    </ul>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
 
           <FormControl>
             <Input
