@@ -8,9 +8,13 @@ import RegistrationView, {
   registrationViewFormSchema,
 } from "@/views/registration-view";
 import { register } from "./actions";
+import { useState } from "react";
+import RegistrationSuccessfullView from "@/views/registration-successfull-view";
 
 const RegistrationPage = () => {
   const { toast } = useToast();
+  const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] =
+    useState(false);
 
   const registrationForm = useForm<z.infer<typeof registrationViewFormSchema>>({
     resolver: zodResolver(registrationViewFormSchema),
@@ -28,11 +32,7 @@ const RegistrationPage = () => {
       const registerResponse = await register(data);
 
       if (registerResponse.success) {
-        toast({
-          title: "Account created",
-          description: "Account created successfully",
-          variant: "success",
-        });
+        setFormSubmittedSuccessfully(true);
       } else {
         throw new Error();
       }
@@ -49,6 +49,10 @@ const RegistrationPage = () => {
       registrationForm.reset();
     }
   };
+
+  if (formSubmittedSuccessfully) {
+    return <RegistrationSuccessfullView />;
+  }
 
   return (
     <RegistrationView

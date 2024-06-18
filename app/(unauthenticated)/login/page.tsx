@@ -12,14 +12,10 @@ import { useEffect } from "react";
 const LoginPage = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const session = useSession();
 
   useEffect(() => {
-    if (session?.status === "authenticated") {
-      router.push("/users");
-    }
     router.prefetch("/forgot-password");
-  }, [router, session?.status]);
+  }, [router]);
 
   const loginForm = useForm<z.infer<typeof loginViewFormSchema>>({
     resolver: zodResolver(loginViewFormSchema),
