@@ -6,6 +6,10 @@ import { Form } from "@/components/ui/form";
 import { NextChatAppForm } from "@/types/form-interface";
 import { z } from "zod";
 
+const passwordValidation = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/
+);
+
 export const registrationViewFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z
@@ -17,8 +21,8 @@ export const registrationViewFormSchema = z.object({
     .min(1, {
       message: "Password is required",
     })
-    .min(6, {
-      message: "Password must be at least 6 characters",
+    .regex(passwordValidation, {
+      message: "Your password is not valid",
     }),
 });
 

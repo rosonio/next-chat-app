@@ -6,6 +6,10 @@ import { Form } from "@/components/ui/form";
 import { NextChatAppForm } from "@/types/form-interface";
 import { z } from "zod";
 
+const passwordValidation = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/
+);
+
 export const resetPasswordViewFormSchema = z
   .object({
     newPassword: z
@@ -13,8 +17,8 @@ export const resetPasswordViewFormSchema = z
       .min(1, {
         message: "Password is required",
       })
-      .min(6, {
-        message: "Password must be at least 6 characters",
+      .regex(passwordValidation, {
+        message: "Your password is not valid",
       }),
     confirmPassword: z
       .string()
@@ -32,8 +36,8 @@ const ResetPasswordView = (props: ResetPasswordViewProps) => {
   return (
     <CardWrapper backButtonLabel="Back to login" backButtonHref="/login">
       <div className="grid gap-5">
-        <div className="flex flex-col space-y-2 text-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col space-y-2">
+          <p className="text-sm text-muted-foreground text-center">
             Please enter a new password
           </p>
 
